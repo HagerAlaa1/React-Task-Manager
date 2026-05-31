@@ -37,3 +37,10 @@ store.subscribe(() => {
 });
 
 export default store;
+
+//get the type of our store variable
+export type AppStore = typeof store;
+//infer the "RootState" and "AppDispatch" types from the store itself
+export type RootState = ReturnType<AppStore["getState"]>;
+//inferred type : [task: TaskState]
+export type AppDispatch = AppStore["dispatch"];

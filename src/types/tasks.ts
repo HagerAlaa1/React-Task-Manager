@@ -13,3 +13,13 @@ export interface TaskState {
   tasks: Task[];
   filter: Filter;
 }
+
+export interface ContainerProps {
+  children: React.ReactNode,
+  className?: string
+}
+
+export interface TaskFormProps {
+  editingTask: Task | null;
+  onCancelEdit: () => void;
+}

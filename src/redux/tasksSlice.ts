@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { TaskState } from "../types/tasks";
+import type Task from "../types/tasks";
 
 // Initial state
 const initialState: TaskState = {
@@ -23,7 +24,7 @@ const tasksSlice = createSlice({
       );
     },
 
-    editTask: (state, action) => {
+    editTask: (state, action: PayloadAction<Task>) => {
       const { id, title, priority } = action.payload;
 
       const task = state.tasks.find(
