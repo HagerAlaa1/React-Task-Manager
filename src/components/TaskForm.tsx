@@ -4,7 +4,11 @@ import type { Priority, TaskFormProps } from "../types/tasks";
 import { editTask, addTask } from "../redux/tasksSlice";
 import type { AppDispatch } from "../redux/store";
 import { nanoid } from "nanoid";
-import { PencilSquareIcon } from "@heroicons/react/16/solid";
+import {
+  PencilSquareIcon,
+  CheckIcon,
+  PlusIcon,
+} from "@heroicons/react/16/solid";
 
 const PRIORITIES = ["High", "Medium", "Low"] as const;
 type priority = (typeof PRIORITIES)[number];
@@ -38,7 +42,7 @@ export default function TaskForm({ editingTask, onCancelEdit }: TaskFormProps) {
   }, [editingTask]);
 
   const handleSubmit = () => {
-    if (!title.trim) return;
+    if (!title.trim()) return;
     if (editingTask) {
       dispatch(editTask({ ...editingTask, title: title.trim(), priority }));
       onCancelEdit();
@@ -75,7 +79,7 @@ export default function TaskForm({ editingTask, onCancelEdit }: TaskFormProps) {
           placeholder={
             editingTask ? "Edit your task…" : "What needs to be done?"
           }
-          className="w-full pl-11 pr-4 py-3.5 bg-blue-950/40 rounded-xl border border-blue-700/30 text-blue-100 focus:outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 placeholder:text-blue-500/50 transition duration-200 text-sm font-medium"
+          className="w-full pl-11 pr-4 py-3.5 bg-blue-950/40 rounded-xl border border-blue-700/30 text-blue-100 focus:outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 placeholder:text-blue-500/50 transition duration-200 text-sm-custom font-medium"
         />
       </div>
       {/*Priority selector*/}
@@ -105,7 +109,33 @@ export default function TaskForm({ editingTask, onCancelEdit }: TaskFormProps) {
         </div>
       </div>
       {/*Action Buttons*/}
-      <div></div>
+      <div className="flex gap-2 mt-5">
+        {editingTask && (
+          <button
+            onClick={() => {
+              (onCancelEdit(), setTitle(""), setPriority("Medium"));
+            }}
+            className="flex-1 py-3 rounded-xl border border-blue-700/30 text-blue-400/70 text-sm-custom font-semibold hover:bg-blue-900/20 hover:text-blue-300 transition-all duration-200 cursor-pointer "
+          >
+            Cancel
+          </button>
+        )}
+        <button
+          onClick={handleSubmit}
+          disabled={!title.trim()}
+          className={`flex-1 py-3 rounded-xl text-sm-custom font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 ${title.trim() ? "bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white shadow-lg shadow-blue-900/40 hover:shadow-blue-700/40 hover:scale-[1.01]" : "bg-blue-900/20 text-blue-600/40 cursor-not-allowed"}`}
+        >
+          {editingTask ? (
+            <>
+              <CheckIcon className="w-4 h-4 " /> Save Changes
+            </>
+          ) : (
+            <>
+              <PlusIcon className="w-4 h-4 " /> Add Task
+            </>
+          )}
+        </button>
+      </div>
     </section>
   );
 }
