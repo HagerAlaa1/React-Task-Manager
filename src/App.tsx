@@ -3,7 +3,10 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Container from "./components/ui/Container";
 import { ClipboardDocumentCheckIcon } from "@heroicons/react/16/solid";
-import TaskForm from './components/TaskForm';
+import TaskForm from "./components/TaskForm";
+import CardLayout from "./components/ui/CardLayout";
+import Cards from "./components/ui/Cards";
+import TaskList from "./components/TaskList";
 function AppContent() {
   const [editingTask, setEditingTask] = useState(null);
   return (
@@ -41,27 +44,31 @@ function AppContent() {
             </p>
           </section>
           {/*Grid layout*/}
-          <section className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-5 items-start">
+          <CardLayout>
             {/*left Card - Task Form*/}
-            <div className="bg-linear-to-b from-blue-950/60 to-[#060e1e]/80 rounded-2xl overflow-hidden border border-blue-800/25 shadow-2xl shadow-blue-950/60 backdrop-blur-sm">
-              <div className="px-6 pt-6 pb-2">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="bg-[#60A5FA] w-1.5 h-1.5 rounded-full" />
-                  <h2 className="text-xs-custom font-bold text-blue-400/80 uppercase tracking-widest">
-                    {editingTask ? "Edit Task" : "New Task"}
-                  </h2>
-                </div>
-                <p className="pl-3.5 text-blue-500/40 mb-5 text-[11px]">
-                  {editingTask
-                    ? "Modify the selected task below"
-                    : "Fill in the details and add to your list"}
-                </p>
-              </div>
-              <div className="px-6 pb-6">
-                <TaskForm editingTask={editingTask} onCancelEdit={() => setEditingTask}/>
-              </div>
-            </div>
-          </section>
+            <Cards
+              title={editingTask ? "Edit Task" : "New Task"}
+              description={
+                editingTask
+                  ? "Modify the selected task below"
+                  : "Fill in the details and add to your list"
+              }
+            >
+              <TaskForm
+                editingTask={editingTask}
+                onCancelEdit={() => setEditingTask(null)}
+              />
+            </Cards>
+            {/*right card - Task List*/}
+            <Cards
+              title="Your Tasks"
+              description="Click a task to toggle completion · hover for actions"
+              className="from-blue-950/50 to-[#060e1e]/70"
+              contentClassName="min-h-[420px]"
+            >
+              <TaskList />
+            </Cards>
+          </CardLayout>
         </Container>
       </main>
     </>
