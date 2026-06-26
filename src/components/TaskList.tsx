@@ -2,9 +2,11 @@ import { useSelector } from "react-redux";
 import type Task from "../types/tasks";
 import type { RootState } from "../redux/store";
 import TaskFilter from "./TaskFilter";
-
-function TaskList() {
-  const { tasks, filter } = useSelector((s: RootState) => s.task);
+import { ClipboardIcon } from "@heroicons/react/24/outline";
+import TaskItem from "./TaskItem";
+import type { TaskListProps } from "../types/tasks";
+function TaskList({ onEdit }: TaskListProps) {
+  const { tasks, filter } = useSelector((s: RootState) => s.tasks);
   const filteredTasks = tasks.filter((task: Task) => {
     if (filter === "All") return true;
     if (filter === "Completed") return task.completed;
@@ -66,9 +68,30 @@ function TaskList() {
       )}
       {/*filters*/}
       <div className="mb-4">
-        <TaskFilter/>
+        <TaskFilter />
       </div>
       {/*tasks list*/}
+      <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scroll">
+        {filteredTasks.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-14 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-blue-950/40 border border-blue-800/30 mb-4 flex items-center justify-center">
+              <ClipboardIcon className="w-6 h-6 text-blue-600/50" />
+            </div>
+            <p className="text-sm font-semibold text-blue-400/50">
+              {filter === "All"
+                ? "No tasks yet"
+                : `No ${filter.toLowerCase()} tasks`}
+            </p>
+            <p className="text-xs text-blue-500/30 mt-1">
+              {filter === "All"
+                ? "Add your first task to get started"
+                : "try a different filter"}
+            </p>
+          </div>
+        ) : (
+          filteredTasks.map((task: Task) => <TaskItem key={task.id} task={task} onEdit={onEdit} />)
+        )}
+      </div>
     </section>
   );
 }

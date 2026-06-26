@@ -15,9 +15,9 @@ export const LoadTasksFromStorage = () => {
 };
 
 //Save Tasks to LocalStorage
-export const saveTasksToStorage = (state: { task: TaskState }) => {
+export const saveTasksToStorage = (state: { tasks: TaskState }) => {
   try {
-    localStorage.setItem("tasks", JSON.stringify(state.task));
+    localStorage.setItem("tasks", JSON.stringify(state.tasks));
   } catch (err) {
     console.log("Failed to Save Tasks to Local Storage", err);
   }
@@ -26,7 +26,7 @@ export const preloadedState = LoadTasksFromStorage();
 
 export const store = configureStore({
   reducer: {
-    task: tasksReducer,
+    tasks: tasksReducer,
   },
   preloadedState,
 });

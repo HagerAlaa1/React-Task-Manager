@@ -31,7 +31,7 @@ const filterConfig = {
 
 export default function TaskFilter() {
   const dispatch = useDispatch<AppDispatch>();
-  const currentFilter = useSelector((s: RootState) => s.task.filter);
+  const currentFilter = useSelector((s: RootState) => s.tasks.filter);
 
   return (
     <div className="flex flex-wrap gap-2 ">

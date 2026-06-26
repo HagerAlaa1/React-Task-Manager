@@ -11,7 +11,7 @@ import {
 } from "@heroicons/react/16/solid";
 
 const PRIORITIES = ["High", "Medium", "Low"] as const;
-type priority = (typeof PRIORITIES)[number];
+// type priority = (typeof PRIORITIES)[number];
 const PriorityConfigs = {
   High: {
     color: "text-red-400",
@@ -65,7 +65,7 @@ export default function TaskForm({ editingTask, onCancelEdit }: TaskFormProps) {
     if (e.key === "Escape" && editingTask) onCancelEdit();
   };
   return (
-    <section className="px-3 pb-6">
+    <section className="">
       {/*title input*/}
       <div className="relative">
         <div className="absolute inset-y-0 pl-4 flex items-center pointer-events-none">

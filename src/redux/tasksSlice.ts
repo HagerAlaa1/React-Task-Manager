@@ -10,7 +10,6 @@ const initialState: TaskState = {
 
 const tasksSlice = createSlice({
   name: "tasks",
-
   initialState,
 
   reducers: {
@@ -27,13 +26,13 @@ const tasksSlice = createSlice({
     editTask: (state, action: PayloadAction<Task>) => {
       const { id, title, priority } = action.payload;
 
-      const task = state.tasks.find(
+      const tasks = state.tasks.find(
         (t) => t.id === id
       );
 
-      if (task) {
-        task.title = title;
-        task.priority = priority;
+      if (tasks) {
+        tasks.title = title;
+        tasks.priority = priority;
       }
     },
 

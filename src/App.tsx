@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Container from "./components/ui/Container";
-import { ClipboardDocumentCheckIcon } from "@heroicons/react/16/solid";
+import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import TaskForm from "./components/TaskForm";
 import CardLayout from "./components/ui/CardLayout";
 import Cards from "./components/ui/Cards";
 import TaskList from "./components/TaskList";
 function AppContent() {
-  const [editingTask, setEditingTask] = useState(null);
+  const [editingTask, setEditingTask] = useState<any | null>(null);
   return (
     <>
       <main className="min-h-screen flex items-center justify-center bg-[#050D1A] p-6 font-sans">
@@ -64,9 +64,9 @@ function AppContent() {
               title="Your Tasks"
               description="Click a task to toggle completion · hover for actions"
               className="from-blue-950/50 to-[#060e1e]/70"
-              contentClassName="min-h-[420px]"
+              contentClassName="h-[430px]"
             >
-              <TaskList />
+              <TaskList onEdit={(task: any) => setEditingTask(task)} />
             </Cards>
           </CardLayout>
         </Container>

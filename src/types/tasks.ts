@@ -34,3 +34,11 @@ export interface TaskFormProps {
   editingTask: Task | null;
   onCancelEdit: () => void;
 }
+export interface TaskItemProps {
+  task: Task;
+  onEdit: (task: Task) => void
+}
+
+export interface TaskListProps {
+  onEdit: (task: Task) => void;
+}
