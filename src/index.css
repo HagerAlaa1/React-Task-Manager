@@ -3,7 +3,7 @@
   box-sizing: border-box;
 }
 
-@theme {
+:root {
   --text-xs-custom: 12px;
   --text-xs-custom--line-height: 16px;
   --text-sm-custom: 14px;

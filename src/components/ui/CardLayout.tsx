@@ -1,4 +1,3 @@
-import React from "react";
 import type { cardLayoutProps } from "../../types/tasks";
 
 function CardLayout({ children }: cardLayoutProps) {

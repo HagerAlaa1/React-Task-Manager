@@ -1,4 +1,3 @@
-import React from "react";
 import type { CardsProps } from "../../types/tasks";
 function Cards({
   title,
